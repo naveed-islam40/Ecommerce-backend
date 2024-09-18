@@ -15,9 +15,9 @@ const order = require("./routes/orderRoute");
 const { connectDB } = require("./connection");
 const ErrorMiddleware = require("./middleware/error");
 const payment = require("./routes/paymentRoute");
-const initialSocket = require("./controllers/socketController");
+// const initialSocket = require("./controllers/socketController");
 
-const socketServer = http.createServer(app);
+// const socketServer = http.createServer(app);
 
 // Handling uncaught Execption
 process.on("uncaughtException", (err) => {
@@ -51,7 +51,7 @@ app.use("/api", users);
 app.use("/api", order);
 app.use("/api", payment);
 app.use(ErrorMiddleware);
-initialSocket(socketServer);
+// initialSocket(socketServer);
 
 const server = app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
