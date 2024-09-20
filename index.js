@@ -43,7 +43,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressUpload());
-app.use(cors());
+app.use(cors(
+  {
+    origin: ["http://localhost:5173", "https://ecommerce-frontend-teal-five.vercel.app"],
+    credentials: true,
+  }
+));
 
 //middlewares
 app.use("/api", products);
