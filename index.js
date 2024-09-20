@@ -43,12 +43,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressUpload());
-app.use(cors(
-  {
-    origin: ["http://localhost:5173", "https://ecommerce-frontend-5plui0qax-naveed-islams-projects-77b7560f.vercel.app"],
-    credentials: true,
-  }
-));
+app.use(cors());
 
 //middlewares
 app.use("/api", products);
