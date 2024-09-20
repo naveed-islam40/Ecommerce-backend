@@ -10,11 +10,11 @@ const crypto = require("crypto");
 const sendToken = require("../utils/jwtToken");
 const productsModel = require("../models/productModel");
 const cloudinary = require("cloudinary");
-const socketIo = require("socket.io");
+// const socketIo = require("socket.io");
 
-const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
+// const app = express();
+// const server = http.createServer(app);
+// const io = socketIo(server);
 
 // register user
 const register = asyncHandler(async function (req, res, next) {
