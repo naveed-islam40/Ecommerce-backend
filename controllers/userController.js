@@ -4,12 +4,11 @@ const http = require("http");
 const ErrorHandler = require("../utils/ErrorHandler");
 const asyncHandler = require("../middleware/asyncHandler");
 const userModel = require("../models/userModel");
-const jwtToken = require("../utils/jwtToken");
 const { sendMail, contactUsMail } = require("../utils/sendMail");
 const crypto = require("crypto");
-const sendToken = require("../utils/jwtToken");
 const productsModel = require("../models/productModel");
 const cloudinary = require("cloudinary");
+const sendToken = require("../utils/jwtToken");
 // const socketIo = require("socket.io");
 
 // const app = express();
@@ -34,7 +33,7 @@ const register = asyncHandler(async function (req, res, next) {
     },
   });
 
-  jwtToken(user, 201, res);
+  sendToken(user, 201, res);
 });
 
 // Login user
@@ -54,7 +53,7 @@ const loginUser = asyncHandler(async function (req, res, next) {
     return next(new ErrorHandler("Invalid email or password", 404));
   }
 
-  jwtToken(user, 200, res);
+  sendToken(user, 200, res);
 });
 
 //  logout user

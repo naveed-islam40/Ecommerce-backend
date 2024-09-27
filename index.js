@@ -44,8 +44,9 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressUpload());
 app.use(cors({
-  origin: 'https://ecommerce-frontend-teal-five.vercel.app',
+  origin: ['https://ecommerce-frontend-teal-five.vercel.app', "http://localhost:5173"],
   methods: 'GET,POST,PUT,DELETE',
+  credentials: true,
 }));
 
 //middlewares
