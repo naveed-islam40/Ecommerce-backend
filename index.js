@@ -44,7 +44,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressUpload());
 app.use(cors({
-  origin:  ["http://localhost:5173", "https://ecommerce-frontend-teal-five.vercel.app/"],
+  origin:  ["http://localhost:5173", "https://ecommerce-frontend-teal-five.vercel.app"],
   credentials: true,
 }));
 
