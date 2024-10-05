@@ -53,6 +53,7 @@ const getSingleOrder = asyncHandler(async function (req, res, next) {
 
 // get all order for logged in user
 const getOrderForLoggedUser = asyncHandler(async function (req, res, next) {
+  console.log(req.user._id)
   const orders = await Order.find({ user: req.user._id });
 
   console.log(orders);
@@ -65,9 +66,8 @@ const getOrderForLoggedUser = asyncHandler(async function (req, res, next) {
 
 //get all orders Detail --Admin
 const getAllOrders = asyncHandler(async (req, res, next) => {
-  const user = req.user.id;
+  const user = req.user._id;
 
-  console.log(user)
 
   const adminProducts = await productsModel.find({ user });
 
@@ -75,6 +75,7 @@ const getAllOrders = asyncHandler(async (req, res, next) => {
     product._id.toString()
   );
 
+  console.log(adminProductIds)
   const orders = await Order.find({
     orderItems: {
       $elemMatch: { id: { $in: adminProductIds } },

@@ -9,7 +9,7 @@ const cloudinary = require("cloudinary").v2;
 const createProduct = asyncHandler(async (req, res, next) => {
   try {
     if (!req.body.images || req.body.images.length === 0) {
-      throw new Error("Images are not present");
+      return res.status(400).json({mesg: "Please add the Images for product"})
     }
 
     const imagesLink = [];
@@ -22,10 +22,14 @@ const createProduct = asyncHandler(async (req, res, next) => {
       images = req.body.images;
     }
 
+    console.log(images)
+
+
     for (let i = 0; i < images.length; i++) {
       const result = await cloudinary.uploader.upload(images[i], {
         folder: "Product_Images",
       });
+
 
       imagesLink.push({
         public_id: result.public_id,
@@ -35,6 +39,7 @@ const createProduct = asyncHandler(async (req, res, next) => {
 
     req.body.images = imagesLink;
     req.body.user = req.user.id;
+
 
     const product = await productsModel.create(req.body);
 

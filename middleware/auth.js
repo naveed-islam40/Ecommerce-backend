@@ -7,7 +7,6 @@ const isAuthenticated = asyncHandler(async function (req, res, next) {
 
     const { token } = req.cookies;
 
-    console.log(req.cookies)
     if (!token) {
         return next(new ErrorHandler("Please login to access these resources", 401))
     }

@@ -9,20 +9,19 @@ const crypto = require("crypto");
 const productsModel = require("../models/productModel");
 const cloudinary = require("cloudinary");
 const sendToken = require("../utils/jwtToken");
-// const socketIo = require("socket.io");
+const  jwt = require("jsonwebtoken");
 
-// const app = express();
-// const server = http.createServer(app);
-// const io = socketIo(server);
 
-// register user
 const register = asyncHandler(async function (req, res, next) {
+  const {body: {name, email, password, avatar}} = req;
+
+  
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
     folder: "avatars",
     width: 150,
     crop: "scale",
   });
-  const { name, email, password } = req.body;
+  // const { name, email, password } = req.body;
   const user = await userModel.create({
     name,
     email,
@@ -52,7 +51,6 @@ const loginUser = asyncHandler(async function (req, res, next) {
   if (!comparePassword) {
     return next(new ErrorHandler("Invalid email or password", 404));
   }
-
   sendToken(user, 200, res);
 });
 
@@ -153,16 +151,16 @@ const getuserDetails = asyncHandler(async (req, res, next) => {
 const updatePassword = asyncHandler(async (req, res, next) => {
   const user = await userModel.findById(req.user.id).select("+password");
 
-  const comparePassword = await user.matchPassword(req.body.oldpassword);
+  const comparePassword = await user.matchPassword(req.body.oldPassword);
   if (!comparePassword) {
     return next(new ErrorHandler("old password is incorrect", 400));
   }
 
-  if (req.body.newpassword !== req.body.confirmpassword) {
+  if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("confirm password does not match", 400));
   }
 
-  user.password = req.body.newpassword;
+  user.password = req.body.newPassword;
   await user.save();
   sendToken(user, 200, res);
 });
@@ -260,8 +258,6 @@ const contactUsPage = asyncHandler(async (req, res, next) => {
       subject: "Conatct Us Mail",
       message: `From: ${email}\n\n${message}`,
     });
-
-    console.log(email);
 
     res.status(200).json({ success: true });
   } catch (error) {
